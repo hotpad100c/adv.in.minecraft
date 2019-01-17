@@ -1,15 +1,28 @@
 #coding=utf-8
 import mcpi.minecraft as minecraft
 import time
+import mcpi.block as block
+
 mc = minecraft.Minecraft.create()
-x1 = -169
-z1 = 271
-x2 = -180
-z2 = 262
+pos = mc.player.getTilePos()
+x1 = pos.x
+z1 = pos.z
+x2 = x1 - 20
+z2 = z1 - 20
+blockid = 124
+blockid2 = 152
+mc.setBlock(x1, pos.y, z1, blockid)
+mc.setBlock(x2, pos.y, z2, blockid)
+mc.setBlock(x2, pos.y, z1, blockid)
+mc.setBlock(x1, pos.y, z2, blockid)
+mc.setBlock(x1, pos.y+1,z1, blockid2)
+mc.setBlock(x2, pos.y+1,z2, blockid2)
+mc.setBlock(x2, pos.y+1,z1, blockid2)
+mc.setBlock(x1, pos.y+1,z2, blockid2)
 rent = 0
 inField = 0
 HOME_x = x2 - 2
-HOME_y = 500
+HOME_y = 300
 HOME_z = z2 - 2
 while True :
     time.sleep(1)
@@ -22,7 +35,7 @@ while True :
         rent = rent + 1
         mc.postToChat("you owe rent:" + str(rent))
         inField = inField+1
-        if inField > 3:
+        if inField > 4:
             mc.postToChat("too slow!")
             while pos.y < HOME_y:
                 pos.y = pos.y + 1
